@@ -1,0 +1,21 @@
+public class NQueen{
+    int[][] board;
+    public NQueen(int size){
+	board=new int[size][size];
+    }
+    public NQueen(){
+	this(4);
+    }
+    public String name(){
+	return "beh.jared";
+    }
+    public String toString(){
+	ans="\n";
+	for (int i=0;i<board.length;i++;){
+	    for (int n=0;n<board[0].length;n++){
+		ans+=board[i][n];
+	    }
+	    ans+="\n";
+	}
+    }
+}
