@@ -42,7 +42,7 @@ public class KnightsTour{
 	board=new int[size][size];
     }
     public KnightsTour(){
-	this(6);
+	this(5);
     }
     
 
@@ -90,7 +90,7 @@ public class KnightsTour{
     }
     public static void main(String[]args){
 	KnightsTour a=new KnightsTour();
-	System.out.println(a.solve(0,0,0));
+	System.out.println(a.solve(4,2,1));
     }
 
 }
