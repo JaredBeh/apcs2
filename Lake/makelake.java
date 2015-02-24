@@ -2,12 +2,6 @@ public class makelake{
     static int row,col,elev,num;
     static int[][] board;
     static int[][] orders;
-    public makelake(){
-	row=0;
-	col=0;
-	elev=0;
-	num=0;
-    }
     public static int create(int n){
 	if (n==0){
 	    int ans=0;
