@@ -46,8 +46,8 @@ public class NQueens{
 	return solve(startx,0);
     }
     public boolean solve(int startx,int starty){
-	System.out.println(this);
-	wait(20);
+	//System.out.println(this);
+	//wait(20);
 	if (startx<0||starty<0||startx>=board.length||starty>=board[0].length||board[startx][starty]!=0){
 	    return false;
 	}
@@ -104,6 +104,7 @@ public class NQueens{
 	    }
 	}
 	if (starty>=board.length-1){
+	    System.out.println(this);
 	    return true;
 	}
 	board[startx][starty]=0;

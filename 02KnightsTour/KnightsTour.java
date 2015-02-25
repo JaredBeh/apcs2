@@ -47,12 +47,12 @@ public class KnightsTour{
     
 
     public void solve(){
-	
+	solve(0,0,0);
     }
 
 
     public void solve(int startx, int starty){
-	
+	solve(startx,starty,0);
     }
 
 
@@ -68,6 +68,7 @@ public class KnightsTour{
 	    return false;
 	}
 	if (currentMoveNumber==board.length*board[0].length){
+	    board[x][y]=currentMoveNumber;
 	    return true;
 	}
 	if (currentMoveNumber<board.length*board[0].length){
@@ -80,7 +81,6 @@ public class KnightsTour{
 		solve(x+2,y-1,currentMoveNumber+1)||
 		solve(x-1,y-2,currentMoveNumber+1)||
 		solve(x-2,y-1,currentMoveNumber+1)){
-		System.out.println(this);
 		return true;
 	    }
 		
@@ -90,7 +90,8 @@ public class KnightsTour{
     }
     public static void main(String[]args){
 	KnightsTour a=new KnightsTour();
-	System.out.println(a.solve(4,2,1));
+	a.solve(4,2,1);
+	System.out.println(a);
     }
 
 }
