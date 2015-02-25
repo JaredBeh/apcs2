@@ -104,7 +104,6 @@ public class NQueens{
 	    }
 	}
 	if (starty>=board.length-1){
-	    System.out.println(this);
 	    return true;
 	}
 	board[startx][starty]=0;
@@ -113,5 +112,6 @@ public class NQueens{
     public static void main(String[]args){
 	NQueens a = new NQueens();
 	a.solve();
+	System.out.println(a);
     }
 }
