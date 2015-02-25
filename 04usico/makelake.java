@@ -7,7 +7,9 @@ public class makelake{
 	    int ans=0;
 	    for (int i=0;i<board.length;i++){
 		for (int x=0;x<board[0].length;x++){
-		    ans+=board[i][x];
+		    if (board[i][x]>elev){
+			ans+=board[i][x]-elev;
+		    }
 		}
 	    }
 	    return ans*72*72;
@@ -65,6 +67,6 @@ public class makelake{
 	    orders[B][2]=Integer.parseInt(args[A+(B*3)+2]);
 	    B++;
 	}
+	System.out.println(makelake.create(num));
     }
-    System.out.println(makelake.create(num));
 }
