@@ -1,3 +1,4 @@
+import java.util.*;
 public class makelake{
     static int row,col,elev,num;
     static int[][] board;
@@ -40,33 +41,28 @@ public class makelake{
 	
     }
     public static void main(String[]args){
-	row=Integer.parseInt(args[0]);
-	col=Integer.parseInt(args[1]);
-	elev=Integer.parseInt(args[2]);
-	num=Integer.parseInt(args[3]);
-	int A;
-	int r=0;
-	int c=0;
+	String a="";
+	for (int i=0;i<args.length;i++){
+	    a+=""+args[i]+" ";
+	}
+	Scanner sc=new Scanner(a);
+	row=sc.nextInt();
+	col=sc.nextInt();
+	elev=sc.nextInt();
+	num=sc.nextInt();
 	board=new int[row][col];
-	for (A=4;A<row*col;A++){
-	    if (r<row){
-		board[r][c]=Integer.parseInt(args[A]);
-		r++;
-	    }
-	    else{
-		c++;
-		board[0][c]=Integer.parseInt(args[A]);
-		r=1;
+	for (int i=0;i<row;i++){
+	    for (int j=0;j<col;j++){
+		board[i][j]=sc.nextInt();
 	    }
 	}
 	orders=new int[num][3];
-	int B=0;
-	while(B<num){
-	    orders[B][0]=Integer.parseInt(args[A+(B*3)]);
-	    orders[B][1]=Integer.parseInt(args[A+(B*3)+1]);
-	    orders[B][2]=Integer.parseInt(args[A+(B*3)+2]);
-	    B++;
+	for (int i=0;i<row;i++){
+	    for (int j=0;j<col;j++){
+		orders[i][j]=sc.nextInt();
+	    }
 	}
-	System.out.println(makelake.create(num));
+	solve(num);
+	System.out.println(Arrays.deepToString(board));
     }
 }
