@@ -1,0 +1,15 @@
+import java.util.*;
+public class ctravel{
+    static int N=0;
+    static int M=0;
+    static int T=0;
+    static int R1,C1,R2,C2;
+    public static void main(String[] args){
+	Scanner sc=new Scanner(System.in);
+	String a=sc.nextLine().replaceAll("//s","");
+	N=Integer.parseInt(a.subString(0,1));
+	M=Integer.parseInt(a.subString(1,2));
+	T=Integer.parseInt(a.subString(2));
+	
+    }
+}
