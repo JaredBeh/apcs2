@@ -5,16 +5,36 @@ public class ctravel{
     static int T=0;
     static int R1,C1,R2,C2;
     static char[][] board;
-    static int[][]board2,board3;
-    public static int cell(boolean b,int time){
-	if (b){
-	    for (int i=0;i<board.length;i++){
-		for (int j=0;j<board[0].length;j++){
-		    
+    /*
+    static int[][]board1,board2;
+    public static void update(int[][]a,int[][]b){
+	for (int i=0;i<a.length;i++){
+	    for (int j=0;j<a[0].length;j++){
+		if (a[i][j]>-1){
+		    int ans=0;
+		    for (int k=-1;k<2;k++){
+			for (int h=-1;h<2;h++){
+			    if(h!=k&&h+k!=0){
+				try{
+				    if (a[i+h][j+k]>-1){
+					
+				    }
+				}
+			    }
+			}
+		    }
 		}
 	    }
 	}
     }
+    public static int cell(boolean b,int time){
+	if (b){
+	    if (time==0){
+		return b1[R2][C2]+b2[R2][C2];
+	    }
+	    update(board1,board2);
+	    }
+	}*/
     public static int solve(int row,int col,int time){
 	if (time==0){
 	    if (row==R2&&col==C2){
@@ -38,24 +58,24 @@ public class ctravel{
 	M=Integer.parseInt(b[1]);
 	T=Integer.parseInt(b[2]);
 	board=new char[N][M];
-	board1=new int[N][M];
-	board2=new int[N][M];
+	//board1=new int[N][M];
+	//board2=new int[N][M];
 	for (int i=0;i<N;i++){
 	    String c=sc.nextLine().replaceAll("\\s","");
 	    char[]d=c.toCharArray();
 	    for (int x=0;x<M;x++){
 		board[i][x]=d[x];
 		if (board[i][x]=='.'){
-		    board1[i][x]=0;
+		    //board1[i][x]=0;
 		}
 		else if(board[i][x]=='*'){
-		    board1[i][x]=-1;
+		    //board1[i][x]=-1;
 		}
 	    }
 	}
-	for (int i=0;i<board1.length;i++){
+	/*for (int i=0;i<board1.length;i++){
 	    board2[i]=board1[i].clone();
-	}
+	    }*/
 	String e=sc.nextLine();
 	String[]f=e.split(" ");
 	R1=Integer.parseInt(f[0])-1;
