@@ -1,0 +1,25 @@
+import java.util.*
+public class Quick{
+    public void partition(int[]ary,int si,int ei){
+	int[]D=new int[ary.length];
+	System.arraycopy(ary,0,D,0,si);
+	try{
+	    System.arraycopy(ary,ei+1,D,ei+1,ary.length-ei);
+	}catch(IndexOutOfBoundsException ex);
+	Random rand=new Random();
+	int i=rand.nextInt(ei-si)+ei-si;
+	int e=ei;
+	for (int n=si;n<e;n++){
+	    if (n!=i){
+		if (ary[n]<ary[i]){
+		    D[si]=ary[n];
+		    si++;
+		}
+		else{
+		    D[ei]=ary[n];
+		    ei--;
+		}
+	    }
+	}
+    }
+}
