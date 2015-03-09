@@ -1,6 +1,32 @@
 import java.util.*;
 public class Quick{
-    public int quickSelect(int[]ary,int si,int ei,int num){
+    public static int[]ary;
+    public static void quicksort(int[]ary){
+	quicksort(ary,0,ary.length-1);
+    }
+    public static void quicksort(int[]ary,int low,int high){
+	int l=0;
+	int h=high;
+	int i=rand.nextInt(high+1-low)+low;
+	int test=ary[i];
+	int temp=0;
+	while(l<h){
+	    while(ary[l]<test){
+		if (l==high)break;
+		l++;
+	    }
+	    if(ary[l]==test){
+		
+	    }
+	    temp=ary[l];
+	    ary[l]=ary[h];
+	    ary[h]=temp;
+	}
+    }
+    public static int quickSelect(int[]ary,int num){
+	return quickSelect(ary,0,ary.length-1,num);
+    }
+    public static int quickSelect(int[]ary,int si,int ei,int num){
 	Random rand=new Random();
 	int i=rand.nextInt(ei+1-si)+si;
 	int e=ei;
@@ -32,7 +58,6 @@ public class Quick{
     }
     public static void main(String[]args){
 	int[]a={3,1,2,5,4,7,6,8,9,0};
-	Quick q=new Quick();
-	q.quickSelect(a,0,a.length-1,5);
+	Quick.quickSelect(a,0,a.length-1,5);
     }
 }
