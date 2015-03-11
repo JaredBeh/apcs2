@@ -5,10 +5,10 @@ public class myLNode{
 	setValue(a);
 	setNext(n);
     }
-    public LNode(int a){
+    public myLNode(int a){
 	setValue(a);
     }
-    public LNode(){
+    public myLNode(){
 	this(0);
     }
     public void setValue(int n){
