@@ -1,0 +1,19 @@
+public class LNode{
+    private int value;
+    private LNode next;
+    public void setValue(int n){
+	value=n;
+    }
+    public void setNext(LNode n){
+	next=n;
+    }
+    public int getValue(){
+	return value;
+    }
+    public LNode getNext(){
+	return next;
+    }
+    public String toString(){
+	return (String)value;
+    }
+}
