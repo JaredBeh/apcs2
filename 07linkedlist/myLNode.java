@@ -1,7 +1,7 @@
 public class myLNode{
     private int value;
     private myLNode next;
-    public LNode(int a,LNode n){
+    public myLNode(int a,myLNode n){
 	setValue(a);
 	setNext(n);
     }

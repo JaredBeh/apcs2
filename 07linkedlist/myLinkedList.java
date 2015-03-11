@@ -12,8 +12,8 @@ public class myLinkedList{
 	}
     }
     public static void main(String[]args){
-	LNode a=new LNode();
-	LNode b=new LNode(5,a);
+	myLNode a=new myLNode();
+	myLNode b=new myLNode(5,a);
 	myLinkedList c=new myLinkedList(b);
 	System.out.println(c);
     }
