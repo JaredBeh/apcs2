@@ -40,6 +40,7 @@ public class myLinkedList{
 	int index=size;
 	while(--index>0)current=current.getNext();
 	current.setNext(new myLNode(value));
+	size++;
     }
     public void add(int index,int value){
 	if (index<0||index>size){
@@ -54,6 +55,7 @@ public class myLinkedList{
 	int temp=current.getValue();
 	current.setValue(value);
 	current.setNext(new myLNode(temp,current.getNext()));
+	size++;
     }
     public void swap(int index1,int index2){
 	int value1=get(index1);
@@ -77,13 +79,18 @@ public class myLinkedList{
 	if (index==0){
 	    int ans=head.getValue();
 	    head=head.getNext();
+	    size--;
 	    return ans;
 	}
 	myLNode current=head;
 	while(--index>0)current=current.getNext();
 	int ans=current.getNext().getValue();
 	current.setNext(current.getNext().getNext());
+	size--;
 	return ans;
+    }
+    public int size(){
+	return size;
     }
     public static void main(String[]args){
 	myLNode a=new myLNode();
@@ -93,6 +100,7 @@ public class myLinkedList{
 	System.out.println(l.get(1));
 	l.add(0,-1);
 	l.swap(0,1);
+	l.remove(1);
 	System.out.println(l.indexOf(0));
 	System.out.println(l);
     }
