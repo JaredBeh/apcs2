@@ -1,11 +1,13 @@
 public class myLinkedList{
-    public myLNode head;
+    public myLNode head,tail;
     public int size;
     public myLinkedList(myLNode a){
 	head=a;
 	myLNode current=a;
+	tail=head;
 	size=1;
 	while(current.getNext()!=null){
+	    tail=tail.getNext();
 	    size++;
 	    current=current.getNext();
 	}
@@ -36,11 +38,9 @@ public class myLinkedList{
 	return current.getValue();
     }
     public void add(int value){
-	myLNode current=head;
-	int index=size;
-	while(--index>0)current=current.getNext();
-	current.setNext(new myLNode(value));
+	tail.setNext(new myLNode(value));
 	size++;
+	tail=tail.getNext();
     }
     public void add(int index,int value){
 	if (index<0||index>size){
