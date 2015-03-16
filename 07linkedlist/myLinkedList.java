@@ -1,4 +1,4 @@
-public class myLinkedList{
+public class myLinkedList<T>{
     public myLNode head,tail;
     public int size;
     public myLinkedList(myLNode a){
@@ -12,6 +12,9 @@ public class myLinkedList{
 	    current=current.getNext();
 	}
     }
+    public String name(){
+	return "beh.jared";
+    }
     public String toString(){
 	myLNode current=head;
 	String ans="["+current.getValue();
@@ -21,7 +24,7 @@ public class myLinkedList{
 	}
 	return ans+"]";
     }
-    public void set(int index,int value){
+    public void set(int index,T value){
 	if (index<0||index>=size){
 	    throw new ArrayIndexOutOfBoundsException();
 	}
@@ -31,18 +34,18 @@ public class myLinkedList{
 	}
 	current.setValue(value);
     }
-    public int get(int index){
+    public T get(int index){
 	if (index<0||index>=size)throw new ArrayIndexOutOfBoundsException();
 	myLNode current=head;
 	while(--index>-1)current=current.getNext();
 	return current.getValue();
     }
-    public void add(int value){
+    public void add(T value){
 	tail.setNext(new myLNode(value));
 	size++;
 	tail=tail.getNext();
     }
-    public void add(int index,int value){
+    public void add(int index,T value){
 	if (index<0||index>size){
 	    throw new ArrayIndexOutOfBoundsException();
 	}
@@ -52,17 +55,17 @@ public class myLinkedList{
 	}
 	myLNode current=head;
 	while(--index>-1)current=current.getNext();
-	int temp=current.getValue();
+	T temp=current.getValue();
 	current.setValue(value);
 	current.setNext(new myLNode(temp,current.getNext()));
 	size++;
     }
     public void swap(int index1,int index2){
-	int value1=get(index1);
+	T value1=get(index1);
 	set(index1,get(index2));
 	set(index2,value1);
     }
-    public int indexOf(int value){
+    public int indexOf(T value){
 	myLNode current=head;
 	int index=-1;
 	try{
@@ -72,19 +75,19 @@ public class myLinkedList{
 	}
 	return index;
     }
-    public int remove(int index){
+    public T remove(int index){
 	if (index<0||index>=size){
 	    throw new ArrayIndexOutOfBoundsException();
 	}
 	if (index==0){
-	    int ans=head.getValue();
+	    T ans=head.getValue();
 	    head=head.getNext();
 	    size--;
 	    return ans;
 	}
 	myLNode current=head;
 	while(--index>0)current=current.getNext();
-	int ans=current.getNext().getValue();
+	T ans=current.getNext().getValue();
 	current.setNext(current.getNext().getNext());
 	size--;
 	return ans;
@@ -93,7 +96,7 @@ public class myLinkedList{
 	return size;
     }
     public static void main(String[]args){
-	myLNode a=new myLNode();
+	myLNode a=new myLNode(0);
 	myLNode b=new myLNode(5,a);
 	myLinkedList l=new myLinkedList(b);
 	System.out.println(l);
