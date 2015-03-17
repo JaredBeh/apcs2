@@ -4,6 +4,9 @@ public class Quick{
     public static void quicksort(int[]ary){
 	quicksort(ary,0,ary.length-1);
     }
+    public String name(){
+	return "beh.jared";
+    }
     public static void quicksort(int[]ary,int low,int high){
 	int l=0;
 	int h=high;
