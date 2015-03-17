@@ -1,4 +1,28 @@
-public class myLinkedList<T>{
+import java.util.*;
+public class myLinkedList<T> implements Iterable<T>{
+    public class mLLIterator<T> implements Iterator<T>{
+	public myLNode<T> first;
+	public mLLIterator(myLNode<T> n){
+	    first=n;
+	}
+	public boolean hasNext(){
+	    if (first.getNext()==null){
+		return false;
+	    }
+	    return true;
+	}
+	public T next(){
+	    T ans= first.getValue();
+	    first=first.getNext();
+	    return ans;
+	}
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+    }
+    public Iterator<T> iterator(){
+	return new mLLIterator<T>(head);
+    }
     public myLNode<T> head,tail;
     public int size;
     public myLinkedList(myLNode<T> a){
