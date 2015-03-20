@@ -1,19 +1,19 @@
 import java.util.*;
 public class myLinkedList<T> implements Iterable<T>{
     public class mLLIterator<T> implements Iterator<T>{
-	public myLNode<T> first;
+	private myLNode<T> current;
 	public mLLIterator(myLNode<T> n){
-	    first=n;
+	    current=n;
 	}
 	public boolean hasNext(){
-	    if (first.getNext()==null){
+	    if (current.getNext()==null){
 		return false;
 	    }
 	    return true;
 	}
 	public T next(){
-	    T ans= first.getValue();
-	    first=first.getNext();
+	    T ans= current.getValue();
+	    current=current.getNext();
 	    return ans;
 	}
 	public void remove(){
