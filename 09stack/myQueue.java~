@@ -1,0 +1,12 @@
+public class myQueue<T> extends myStack<T>{
+    public T enqueue(T thing){
+	stack.add(thing);
+	return thing;
+    }
+    public T dequeue(T thing){
+	return pop();
+    }
+    public static void main(String[]args){
+	myQueue
+    }
+}

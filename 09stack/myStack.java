@@ -1,10 +1,11 @@
 public class myStack<T>{
-    private myLinkedList<T> stack;
+    myLinkedList<T> stack;
     public myStack(){
 	stack = new myLinkedList<T>(new myLNode<T>(null));
     }
-    public void push(T thing){
+    public T push(T thing){
 	stack.add(0,thing);
+	return stack.get(0);
     }
     public T pop(){
 	if(empty())/*throw new EmptyStackException()*/return null;
