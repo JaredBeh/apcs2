@@ -1,0 +1,18 @@
+public class myStack<T>{
+    private myLinkedList<T> stack;
+    public myStack(){
+	stack = new myLinkedList<T>();
+    }
+    public void push(T thing){
+	stack.add(thing,0);
+    }
+    public T pop(){
+	if(stack.size()==0)throw new EmptyStackException();
+	return stack.remove();
+    }
+    public static void main(String[]args){
+	myStack<Integer> buster=new myStack<Integer>();
+	buster.push(15);
+	System.out.println(buster.pop());
+    }
+}
