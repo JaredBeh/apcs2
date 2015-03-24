@@ -43,6 +43,7 @@ public class myLinkedList<T> implements Iterable<T>{
 	return "beh.jared";
     }
     public String toString(){
+	if(size==0)return "[]";
 	myLNode<T> current=head;
 	String ans="["+current.getValue();
 	while(current.getNext()!=null){
@@ -67,10 +68,16 @@ public class myLinkedList<T> implements Iterable<T>{
 	while(--index>-1)current=current.getNext();
 	return current.getValue();
     }
-    public void add(T value){
-	tail.setNext(new myLNode<T>(value));
+    public boolean add(T value){
+	if (size==0){
+	    head=new myLNode<T>(value);
+	    tail=head;
+	}else{
+	    tail.setNext(new myLNode<T>(value));
+	    tail=tail.getNext();
+	}
 	size++;
-	tail=tail.getNext();
+	return true;
     }
     public void add(int index,T value){
 	if (index<0||index>size){
