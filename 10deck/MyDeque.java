@@ -5,9 +5,6 @@ public class MyDeque<T>{
     public MyDeque(){
 	this(10);
     }
-    public String name(){
-	return "beh.jared";
-    }
     public MyDeque(int i){
 	f=0;l=0;size=0;
 	data=new Object[i];
@@ -31,28 +28,23 @@ public class MyDeque<T>{
     }
     public void addFirst(T value){
 	resize();
-	data[f]=value;
 	if (f==0){
 	    f=data.length;
 	}
 	f--;
+	data[f]=value;
 	size++;
     }
     public void addLast(T value){
 	resize();
-	data[l]=value;
-	if (l==f)f--;
-	if(f<0)f=data.length-1;
-	if(l==data.length-1) l=-1;
-	l++;
 	size++;
+	l++;
+	data[l]=value;
     }
     public static void main(String[]arr){
-	MyDeque<Integer>q=new MyDeque<Integer>();
-	for(int i=0;i<5;i++){
-	    q.addFirst(i);
-	    q.addLast(-1*i);
-	}
+	MyDeque<Integer>q=new MyDeque<Integer>(1);
+	q.addLast(2);
+	q.addLast(3);
 	System.out.println(q);
     }
 }
