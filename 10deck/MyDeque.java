@@ -6,7 +6,7 @@ public class MyDeque<T>{
 	this(10);
     }
     public MyDeque(int i){
-	f=0;l=0;size=0;
+	f=1;l=0;size=0;
 	data=new Object[i];
     }
     public String toString(){
@@ -19,10 +19,12 @@ public class MyDeque<T>{
 		d2[i-f]=data[i];
 	    }
 	    if(f>l){
-		for (int i=l;i>-1;i--){
-		    d2[size-i-1]=data[i];
+		for (int i=0;i<=l;i++){
+		    d2[size+i-1]=data[i];
 		}
 	    }
+	    f=0;
+	    l=size;
 	    data=d2;
 	}
     }
@@ -38,13 +40,16 @@ public class MyDeque<T>{
     public void addLast(T value){
 	resize();
 	size++;
+	if(l==data.length-1)l=-1;
 	l++;
 	data[l]=value;
     }
     public static void main(String[]arr){
-	MyDeque<Integer>q=new MyDeque<Integer>(1);
-	q.addLast(2);
-	q.addLast(3);
+	MyDeque<Integer>q=new MyDeque<Integer>();
+	for(int i=0;i<11;i++){
+	    //q.addFirst(-1*i);
+	    q.addLast(i);
+	}
 	System.out.println(q);
     }
 }
