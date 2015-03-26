@@ -35,6 +35,7 @@ public class MyDeque<T>{
 	if (f==0){
 	    f=data.length;
 	}
+	if(
 	f--;
 	size++;
     }
