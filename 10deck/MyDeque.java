@@ -52,12 +52,33 @@ public class MyDeque<T>{
 	l++;
 	data[l]=value;
     }
+    public T getFirst(){
+	return data[f];
+    }
+    public T getLast(){
+	return data[l];
+    }
+    public T removeFirst(){
+	T ans=getFirst();
+	data[f]=null;
+	if(f==data.length)f=-1;
+	f++;
+	return ans;
+    }
+    public T removeLast(){
+	T ans=getLast();
+	data[l]=null;
+	if(l==0)l=data.length;
+	l--;
+	return ans;
+    }
     public static void main(String[]arr){
 	MyDeque<Integer>q=new MyDeque<Integer>();
 	for(int i=0;i<9;i++){
 	    q.addFirst(-1*i);
 	    q.addLast(i);
 	}
+	System.out.println(q.removeLast());
 	System.out.println(q);
 	System.out.println(""+q.f+" "+q.l);
     }
