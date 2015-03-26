@@ -25,6 +25,8 @@ public class MyDeque<T>{
 	    System.arraycopy(data,f,d2,0,size);
 	}
 	data=d2;
+	f=0;
+	l=size-1;
     }
     public void addFirst(T value){
 	resize();
@@ -38,12 +40,25 @@ public class MyDeque<T>{
 	f--;
 	data[f]=value;
     }
+    public void addLast(T value){
+	resize();
+	size++;
+	if(f==-1||l==-1){
+	    data[0]=value;
+	    f=0;l=0;
+	    return;
+	}
+	if(l==data.length-1)l=-1;
+	l++;
+	data[l]=value;
+    }
     public static void main(String[]arr){
 	MyDeque<Integer>q=new MyDeque<Integer>();
-	for(int i=0;i<11;i++){
+	for(int i=0;i<9;i++){
 	    q.addFirst(-1*i);
-	    //q.addLast(i);
+	    q.addLast(i);
 	}
 	System.out.println(q);
+	System.out.println(""+q.f+" "+q.l);
     }
 }
