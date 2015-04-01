@@ -88,14 +88,55 @@ public class Maze{
      */
     public class cord{
 	int x,y;
-	public cord(int a,int b){
+	MyDeque<cord> breadcrumbs;
+	public cord(int a,int b,MyDeque<cord> c){
 	    x=a;
 	    y=b;
+	    breadcrumbs=c;
+	}
+	public cord(int a,int b){
+	    this(a,b,null);
+	}
+    }
+    public class frontier{
+	MyDeque<cord> q;
+	int mode;
+	public frontier(MyDeque<cord> c,int m){
+	    mode=m;
+	    q=c;
+	}
+	public void add(cord c){
+	    if(mode==0)q.addLast(c);
+	    else{
+		q.addFirst(c);
+	    }
+	}
+	public cord remove(){
+	    return q.removeFirst();
+	}
+	public cord get(){
+	    return q.getFirst();
 	}
     }
     public boolean solveBFS(boolean animate){
-	MyDeque<cord> q=new MyDeque<cord>();
-	q.addLast(new cord(startx,starty));
+	MyDeque<cord> q=new MyDeque<cord>(maxx*maxy);
+	q.addLast(new cord(startx,starty,new MyDeque<cord>()));
+	boolean solved=false;
+	while(!solved){
+	    if(maze[q.getFirst().x][q.getFirst().y]=='E')solved=true;
+	    else{
+		int x=q.getFirst().x;
+		int y=q.getFirst().y;
+		MyDeque<cord> br=q.getFirst().breadcrumbs;
+		maze[x][y]='.';
+		for(int i=-1;i<2;i++){
+		    for(int n=-1;n<2;n++){
+			if(n!=0||i!=0)q.addLast(new cord(x+i,y+n,br.addLast(new cord(x,y))));
+		    }
+		}
+		
+	    }
+	}
     }
 
     /**Solve the maze using a frontier in a DFS manner. 
