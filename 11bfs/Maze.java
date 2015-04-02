@@ -95,7 +95,7 @@ public class Maze{
 	    breadcrumbs=c;
 	}
 	public cord(int a,int b){
-	    this(a,b,null);
+	    x=a;y=b;
 	}
     }
     public class frontier{
@@ -118,37 +118,47 @@ public class Maze{
 	    return q.getFirst();
 	}
     }
-    public boolean solveBFS(boolean animate){
-	MyDeque<cord> q=new MyDeque<cord>(maxx*maxy);
-	q.addLast(new cord(startx,starty,new MyDeque<cord>()));
+    public boolean solve(boolean animate,int mode){
+	frontier q=new frontier(new MyDeque<cord>(maxx*maxy),mode);
+	q.add(new cord(startx,starty,new MyDeque<cord>()));
 	boolean solved=false;
 	while(!solved){
-	    if(maze[q.getFirst().x][q.getFirst().y]=='E')solved=true;
+	    if(maze[q.get().x][q.get().y]=='E')solved=true;
 	    else{
-		int x=q.getFirst().x;
-		int y=q.getFirst().y;
-		MyDeque<cord> br=q.getFirst().breadcrumbs;
+		int x=q.get().x;
+		int y=q.get().y;
+		MyDeque<cord>br=q.get().breadcrumbs;
+		br.addLast(new cord(x,y));
 		maze[x][y]='.';
+		q.remove();
 		for(int i=-1;i<2;i++){
 		    for(int n=-1;n<2;n++){
-			if(n!=0||i!=0)q.addLast(new cord(x+i,y+n,br.addLast(new cord(x,y))));
+			if(n!=0 ||
+			   i!=0 &&
+			   maze[x+i][y+n]!='#')q.add(new cord(x+i,y+n,br));
 		    }
 		}
-		
 	    }
+	    System.out.println(this.toString(animate));
 	}
+	return true;
     }
 
     /**Solve the maze using a frontier in a DFS manner. 
      * When animate is true, print the board at each step of the algorithm.
      * Replace spaces with x's as you traverse the maze. 
      */
-    public boolean solveDFS(boolean animate){    }
-
+    public boolean solveDFS(boolean animate){
+	return solve(false,1);
+    }
     public boolean solveBFS(){
-	return solveBFS(false);
+	return solve(false,0);
     }
     public boolean solveDFS(){
 	return solveDFS(false);
+    }
+    public static void main(String[]arr){
+	Maze a=new Maze("data1.dat");
+	a.solve(true,0);
     }
 }
