@@ -57,7 +57,11 @@ public class Maze{
 	}
     }
     public String toString(){
-	return Arrays.deepToString(maze);
+	String ans="";
+	for(int i=0;i<maze.length;i++){
+	    ans+=Arrays.toString(maze[i])+"\n";
+	}
+	return ans;
     }
 
     public String toString(boolean animate){
@@ -133,9 +137,8 @@ public class Maze{
 		q.remove();
 		for(int i=-1;i<2;i++){
 		    for(int n=-1;n<2;n++){
-			if(n!=0 ||
-			   i!=0 &&
-			   maze[x+i][y+n]!='#')q.add(new cord(x+i,y+n,br));
+			if(maze[x+i][y+n]==' ' ||
+			   maze[x+i][y+n]=='E')q.add(new cord(x+i,y+n,br));
 		    }
 		}
 	    }
@@ -159,6 +162,6 @@ public class Maze{
     }
     public static void main(String[]arr){
 	Maze a=new Maze("data1.dat");
-	a.solve(true,0);
+	a.solve(false,0);
     }
 }
