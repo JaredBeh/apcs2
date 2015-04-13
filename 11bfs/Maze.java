@@ -148,15 +148,17 @@ public class Maze{
 	    }
 	    if(animate)System.out.println(this.toString(animate));
 	}
-	ans=new int[q.get().breadcrumbs.size*2];
-	int index=0;
-	while(q.get().breadcrumbs.getFirst()!=null){
-	    cord a=q.get().breadcrumbs.removeFirst();
-	    ans[index]=a.x;
-	    ans[index++]=a.y;
-	    index++;
+	if(solved){
+	    ans=new int[q.get().breadcrumbs.size*2];
+	    int index=0;
+	    while(q.get().breadcrumbs.getFirst()!=null){
+		cord a=q.get().breadcrumbs.removeFirst();
+		ans[index]=a.x;
+		ans[index++]=a.y;
+		index++;
+	    }
 	}
-	return true;
+	return solved;
     }
     public int[] solutionCoordinates(){return ans;}
 
