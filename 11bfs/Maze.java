@@ -2,6 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
     private char[][]maze;
+    public int[]ans;
     private int maxx,maxy,startx,starty;
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
@@ -105,6 +106,9 @@ public class Maze{
     public class frontier{
 	MyDeque<cord> q;
 	int mode;
+	public int size(){
+	    return q.size;
+	}
 	public frontier(MyDeque<cord> c,int m){
 	    mode=m;
 	    q=c;
@@ -126,7 +130,7 @@ public class Maze{
 	frontier q=new frontier(new MyDeque<cord>(maxx*maxy),mode);
 	q.add(new cord(startx,starty,new MyDeque<cord>()));
 	boolean solved=false;
-	while(!solved){
+	while(q.size()>0&&!solved){
 	    if(maze[q.get().x][q.get().y]=='E')solved=true;
 	    else{
 		int x=q.get().x;
@@ -142,10 +146,19 @@ public class Maze{
 		    }
 		}
 	    }
-	    System.out.println(this.toString(animate));
+	    if(animate)System.out.println(this.toString(animate));
+	}
+	ans=new int[q.get().breadcrumbs.size*2];
+	int index=0;
+	while(q.get().breadcrumbs.getFirst()!=null){
+	    cord a=q.get().breadcrumbs.removeFirst();
+	    ans[index]=a.x;
+	    ans[index++]=a.y;
+	    index++;
 	}
 	return true;
     }
+    public int[] solutionCoordinates(){return ans;}
 
     /**Solve the maze using a frontier in a DFS manner. 
      * When animate is true, print the board at each step of the algorithm.
