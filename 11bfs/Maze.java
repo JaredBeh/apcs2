@@ -126,36 +126,35 @@ public class Maze{
 	    return q.getFirst();
 	}
     }
-    public boolean solve(boolean animate,int mode){
-	frontier q=new frontier(new MyDeque<cord>(maxx*maxy),mode);
-	q.add(new cord(startx,starty,new MyDeque<cord>()));
-	boolean solved=false;
-	while(q.size()>0&&!solved){
-	    if(maze[q.get().x][q.get().y]=='E')solved=true;
-	    else{
-		int x=q.get().x;
-		int y=q.get().y;
-		MyDeque<cord>br=q.get().breadcrumbs;
-		br.addLast(new cord(x,y));
-		maze[x][y]='.';
-		q.remove();
-		for(int i=-1;i<2;i++){
-		    for(int n=-1;n<2;n++){
-			if(maze[x+i][y+n]==' ' ||
-			   maze[x+i][y+n]=='E')q.add(new cord(x+i,y+n,br));
-		    }
-		}
+    private boolean solve(boolean animate, int mode){
+
+	Frontier rest = new Frontier(mode);
+	Point start = new Point(startx,starty);//startx and starty are instance variables in my maze class
+
+	rest.add(start);//put the start into the Frontier 
+		
+	boolean solved = false;
+	while(!solved && rest.hasNext()){
+	    if(animate && !solved){
+		System.out.println(toString(true));
 	    }
-	    if(animate)System.out.println(this.toString(animate));
-	}
-	if(solved){
-	    ans=new int[q.get().breadcrumbs.size*2];
-	    int index=0;
-	    while(q.get().breadcrumbs.getFirst()!=null){
-		cord a=q.get().breadcrumbs.removeFirst();
-		ans[index]=a.x;
-		ans[index++]=a.y;
-		index++;
+	    //get the top
+	    Point next = rest.remove();
+	    //check if solved
+	    if(maze[next.getX()][next.getY()]=='E'){
+		//solved!
+		solved = true;
+		addCoordinatesToSolutionArray(next);
+
+		//my point class has a reference to previous points, so the solution will be determined from the final point
+
+	    }else{
+		//not solved, so add neighbors to Frontier and mark the floor with x.
+		maze[next.getX()][next.getY()]='x';
+		for(Point p : getNeighbors(next)){
+		    rest.add(p);
+		}
+
 	    }
 	}
 	return solved;
@@ -179,4 +178,5 @@ public class Maze{
 	Maze a=new Maze("data1.dat");
 	a.solve(false,0);
     }
+    
 }
