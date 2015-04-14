@@ -1,13 +1,17 @@
 import java.util.*;
 public class MyDeque<T>{
     public T[] data;
+    public int[] hur;
     public int f,l,size;
+    public boolean pri;
     public MyDeque(){
-	this(10);
+	this(10,false);
     }
-    public MyDeque(int i){
+    public MyDeque(int i,boolean priority){
 	f=-1;l=-1;size=0;
-	data=(T[])(new Object[i]);;
+	data=(T[])(new Object[i]);
+	hur=new int[i];
+	pri=priority;
     }
     public String toString(){
 	return Arrays.toString(data);
@@ -16,17 +20,31 @@ public class MyDeque<T>{
     public void resize(){
 	if(size<data.length)return;
 	T[]d2=(T[])(new Object[size*2]);
+	if(pri)int[]h2=new int[size*2];
 	if(f==l){
 	    d2[0]=data[f];
+	    if(pri)h2[0]=hur[f];
 	}else if(f>l){
 	    System.arraycopy(data,f,d2,0,size-f);
+	    if(pri)System.arraycopy(hur,f,h2,0,size-f);
 	    System.arraycopy(data,0,d2,size-f,f);
+	    if(pri)System.arraycopy(hur,0,h2,size-f,f);
 	}else{
 	    System.arraycopy(data,f,d2,0,size);
+	    if(pri)System.arraycopy(hur,f,h2,0,size);
 	}
 	data=d2;
+	if(pri)hur=h2;
 	f=0;
 	l=size-1;
+    }
+    public void add(T value,int h){
+	if(!pri)return;
+	addLast(value);
+	hur[l]=h;
+    }
+    public T removeSmallest(){
+	for(int i=f;i%
     }
     public void addFirst(T value){
 	resize();
