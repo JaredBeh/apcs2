@@ -20,7 +20,7 @@ public class MyDeque<T>{
     public void resize(){
 	if(size<data.length)return;
 	T[]d2=(T[])(new Object[size*2]);
-	if(pri)int[]h2=new int[size*2];
+	int[]h2=new int[size*2];
 	if(f==l){
 	    d2[0]=data[f];
 	    if(pri)h2[0]=hur[f];
@@ -44,7 +44,20 @@ public class MyDeque<T>{
 	hur[l]=h;
     }
     public T removeSmallest(){
-	for(int i=f;i%
+	int m=hur[l];
+	int dex=l;
+	for(int i=f;i%hur.length!=l;i++){
+	    if (m>hur[i%hur.length]){
+		m=hur[i%hur.length];
+		dex=i%hur.length;
+	    }
+	}
+	T ans=data[dex];
+	data[dex]=data[f];
+	data[f]=null;
+	if(f==data.length-1)f=-1;
+	f++;
+	return ans;
     }
     public void addFirst(T value){
 	resize();

@@ -91,45 +91,65 @@ public class Maze{
      * When animate is true, print the board at each step of the algorithm.
      * Replace spaces with x's as you traverse the maze. 
      */
-    public class cord{
+    public class Point{
 	int x,y;
-	MyDeque<cord> breadcrumbs;
-	public cord(int a,int b,MyDeque<cord> c){
+	Point previous;
+	public Point(int a,int b,Point p){
 	    x=a;
 	    y=b;
-	    breadcrumbs=c;
+	    previous=p;
 	}
-	public cord(int a,int b){
+	public Point(int a,int b){
 	    x=a;y=b;
 	}
+	public boolean hasPrev(){
+	    return previous!=null;
+	}
+	public int getX(){return x;}
+	public int getY(){return y;}
     }
-    public class frontier{
-	MyDeque<cord> q;
+    public class Frontier{
+	MyDeque<Point> q;
 	int mode;
 	public int size(){
 	    return q.size;
 	}
-	public frontier(MyDeque<cord> c,int m){
+	public Frontier(int m){
+	    mode=m;
+	}
+	public Frontier(MyDeque<Point> c,int m){
 	    mode=m;
 	    q=c;
 	}
-	public void add(cord c){
+	public void add(Point c){
 	    if(mode==0)q.addLast(c);
 	    else{
 		q.addFirst(c);
 	    }
 	}
-	public cord remove(){
+	public Point remove(){
 	    return q.removeFirst();
 	}
-	public cord get(){
+	public Point get(){
 	    return q.getFirst();
+	}
+	public boolean hasNext(){
+	    return q.size>0;
+	}
+    }
+    public void addCoordinatesToSolutionArray(Point p){
+	int i=0;
+	while(p.hasPrev()){
+	    ans[i]=p.x;
+	    ans[i++]=p.y;
+	    i++;
+	    p=p.previous;
 	}
     }
     private boolean solve(boolean animate, int mode){
 
 	Frontier rest = new Frontier(mode);
-	Point start = new Point(startx,starty);//startx and starty are instance variables in my maze class
+	Point start = new Point(startx,starty);
 
 	rest.add(start);//put the start into the Frontier 
 		
@@ -158,6 +178,19 @@ public class Maze{
 	    }
 	}
 	return solved;
+    }
+    public Point[] getNeighbors(Point next){
+	Point[] ans=new Point[8];
+	int x=next.getX();
+	int y=next.getY();
+	for (int xx=-1;xx<2;xx++){
+	    for (int yy=-1;yy<2;yy++){
+		if(xx!=0||yy!=0){
+		    if(maze[x+xx][y+yy]==' '||maze[x+xx][y+yy]=='E')ans[2+xx+yy]=new Point(x+xx,y+yy,next);
+		}
+	    }
+	}
+	return ans;
     }
     public int[] solutionCoordinates(){return ans;}
 
