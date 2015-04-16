@@ -57,6 +57,7 @@ public class MyDeque<T>{
 	data[f]=null;
 	if(f==data.length-1)f=-1;
 	f++;
+	size--;
 	return ans;
     }
     public void addFirst(T value){
@@ -92,8 +93,9 @@ public class MyDeque<T>{
     public T removeFirst(){
 	T ans=getFirst();
 	data[f]=null;
-	if(f==data.length)f=-1;
+	if(f==data.length-1)f=-1;
 	f++;
+	size--;
 	return ans;
     }
     public T removeLast(){
@@ -101,6 +103,7 @@ public class MyDeque<T>{
 	data[l]=null;
 	if(l==0)l=data.length;
 	l--;
+	size--;
 	return ans;
     }
     public static void main(String[]arr){

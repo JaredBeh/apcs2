@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 public class Maze{
     private char[][]maze;
-    public int[]ans;
+    public int[]sol;
     private int maxx,maxy,startx,starty;
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
@@ -105,8 +105,14 @@ public class Maze{
 	public boolean hasPrev(){
 	    return previous!=null;
 	}
-	public int getX(){return x;}
+	public Point getPrev(){return previous;}
+	public int getX(){
+	    return x;
+	}
 	public int getY(){return y;}
+	public String toString(){
+	    return "["+getX()+", "+getY()+"]";
+	}
     }
     public class Frontier{
 	MyDeque<Point> q;
@@ -116,10 +122,14 @@ public class Maze{
 	}
 	public Frontier(int m){
 	    mode=m;
+	    q=new MyDeque();
 	}
 	public Frontier(MyDeque<Point> c,int m){
 	    mode=m;
 	    q=c;
+	}
+	public String toString(){
+	    return q.toString();
 	}
 	public void add(Point c){
 	    if(mode==0)q.addLast(c);
@@ -139,10 +149,17 @@ public class Maze{
     }
     public void addCoordinatesToSolutionArray(Point p){
 	int i=0;
+	int s=0;
+	Point tst=p;
+	while(tst.hasPrev()){
+	    s++;
+	    tst=tst.previous;
+	}
+	sol=new int[s*2];
 	while(p.hasPrev()){
-	    ans[i]=p.x;
-	    ans[i++]=p.y;
-	    i++;
+	    sol[i]=p.getX();
+	    sol[i+1]=p.getY();
+	    i=i+2;
 	    p=p.previous;
 	}
     }
@@ -171,28 +188,36 @@ public class Maze{
 	    }else{
 		//not solved, so add neighbors to Frontier and mark the floor with x.
 		maze[next.getX()][next.getY()]='x';
+		if(next.hasPrev()){
+		    maze[next.getPrev().getX()][next.getPrev().getY()]='.';
+		}
 		for(Point p : getNeighbors(next)){
-		    rest.add(p);
+		    if(p!=null)rest.add(p);
 		}
 
 	    }
 	}
+	System.out.println(Arrays.toString(sol));
 	return solved;
     }
     public Point[] getNeighbors(Point next){
 	Point[] ans=new Point[8];
+	int ind=0;
 	int x=next.getX();
 	int y=next.getY();
 	for (int xx=-1;xx<2;xx++){
 	    for (int yy=-1;yy<2;yy++){
 		if(xx!=0||yy!=0){
-		    if(maze[x+xx][y+yy]==' '||maze[x+xx][y+yy]=='E')ans[2+xx+yy]=new Point(x+xx,y+yy,next);
+		    if(maze[x+xx][y+yy]==' '||maze[x+xx][y+yy]=='E'){
+			ans[ind]=new Point(x+xx,y+yy,next);
+			ind++;
+		    }
 		}
 	    }
 	}
 	return ans;
     }
-    public int[] solutionCoordinates(){return ans;}
+    public int[] solutionCoordinates(){return sol;}
 
     /**Solve the maze using a frontier in a DFS manner. 
      * When animate is true, print the board at each step of the algorithm.
@@ -209,7 +234,9 @@ public class Maze{
     }
     public static void main(String[]arr){
 	Maze a=new Maze("data1.dat");
-	a.solve(false,0);
+	//Point b=new Point(0,0);
+	//System.out.println(a.getNeighbors(b));
+	a.solve(true,0);
     }
     
 }
