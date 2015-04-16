@@ -1,3 +1,4 @@
+//test using qiao.github.io/
 import java.util.*;
 import java.io.*;
 public class Maze{
@@ -92,19 +93,21 @@ public class Maze{
      * Replace spaces with x's as you traverse the maze. 
      */
     public class Point{
-	int x,y;
+	int x,y,worth;
 	Point previous;
-	public Point(int a,int b,Point p){
+	public Point(int a,int b,Point p,int c){
 	    x=a;
 	    y=b;
+	    worth=c;
 	    previous=p;
 	}
-	public Point(int a,int b){
-	    x=a;y=b;
+	public Point(int a,int b,int c){
+	    x=a;y=b;worth=c;
 	}
 	public boolean hasPrev(){
 	    return previous!=null;
 	}
+	public int getWorth(){return worth;}
 	public Point getPrev(){return previous;}
 	public int getX(){
 	    return x;
@@ -122,7 +125,7 @@ public class Maze{
 	}
 	public Frontier(int m){
 	    mode=m;
-	    q=new MyDeque();
+	    q=new MyDeque(maxx,m>1);
 	}
 	public Frontier(MyDeque<Point> c,int m){
 	    mode=m;
@@ -133,8 +136,11 @@ public class Maze{
 	}
 	public void add(Point c){
 	    if(mode==0)q.addLast(c);
-	    else{
+	    else if(mode==1){
 		q.addFirst(c);
+	    }
+	    else{
+		q.add(c,c.getWorth());
 	    }
 	}
 	public Point remove(){
@@ -167,8 +173,7 @@ public class Maze{
     private boolean solve(boolean animate, int mode){
 
 	Frontier rest = new Frontier(mode);
-	Point start = new Point(startx,starty);
-
+	Point start = new Point(startx,starty,0);
 	rest.add(start);//put the start into the Frontier 
 		
 	boolean solved = false;
@@ -228,6 +233,9 @@ public class Maze{
      */
     public boolean solveDFS(boolean animate){
 	return solve(false,1);
+    }
+    public boolean solveBFS(boolean animate){
+	return solve(animate,0);
     }
     public boolean solveBFS(){
 	return solve(false,0);
