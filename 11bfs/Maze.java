@@ -79,7 +79,7 @@ public class Maze{
 		    ans += color(32,40)+c;
 		}
 	    }
-	    return hide + go(0,0) + ans + "\n" + show + color(37,40);
+	    return clear+hide + go(0,0) + ans + "\n" + show + color(37,40);
 	}
 	else{
 	    return toString();
@@ -159,6 +159,7 @@ public class Maze{
 	while(p.hasPrev()){
 	    sol[i]=p.getX();
 	    sol[i+1]=p.getY();
+	    maze[p.getX()][p.getY()]='!';
 	    i=i+2;
 	    p=p.previous;
 	}
@@ -197,6 +198,8 @@ public class Maze{
 
 	    }
 	}
+	maze[startx][starty]='S';
+	System.out.println(toString(true));
 	System.out.println(Arrays.toString(sol));
 	return solved;
     }
@@ -234,9 +237,10 @@ public class Maze{
     }
     public static void main(String[]arr){
 	Maze a=new Maze("data1.dat");
+	a.clearTerminal();
 	//Point b=new Point(0,0);
 	//System.out.println(a.getNeighbors(b));
-	a.solve(true,0);
+	a.solve(true,1);
     }
     
 }
