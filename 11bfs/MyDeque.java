@@ -13,6 +13,7 @@ public class MyDeque<T>{
 	hur=new int[i];
 	pri=priority;
     }
+    public MyDeque(boolean priority){this(10,priority);}
     public String toString(){
 	return Arrays.toString(data);
     }
@@ -55,6 +56,9 @@ public class MyDeque<T>{
 	T ans=data[dex];
 	data[dex]=data[f];
 	data[f]=null;
+	int a=hur[dex];
+	hur[dex]=hur[f];
+	hur[f]=0;
 	if(f==data.length-1)f=-1;
 	f++;
 	size--;
@@ -107,13 +111,13 @@ public class MyDeque<T>{
 	return ans;
     }
     public static void main(String[]arr){
-	MyDeque<Integer>q=new MyDeque<Integer>();
+	MyDeque<Integer>q=new MyDeque<Integer>(true);
 	for(int i=0;i<9;i++){
-	    q.addFirst(-1*i);
-	    q.addLast(i);
+	    q.add(i,10-i);
 	}
-	System.out.println(q.removeLast());
+	System.out.println(q.removeSmallest());
 	System.out.println(q);
+	System.out.println(Arrays.toString(q.hur));
 	System.out.println(""+q.f+" "+q.l);
     }
 }

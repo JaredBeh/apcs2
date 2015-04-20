@@ -4,7 +4,7 @@ import java.io.*;
 public class Maze{
     private char[][]maze;
     public int[]sol;
-    private int maxx,maxy,startx,starty;
+    private int maxx,maxy,startx,starty,endx,endy;
     private static final String clear =  "\033[2J";
     private static final String hide =  "\033[?25l";
     private static final String show =  "\033[?25h";
@@ -39,6 +39,10 @@ public class Maze{
 	    if(c == 'S'){
 		startx = i % maxx;
 		starty = i / maxx;
+	    }
+	    else if(c=='E'){
+		endx=i%maxx;
+		endy=i/maxx;
 	    }
 	}
     }
@@ -80,7 +84,7 @@ public class Maze{
 		    ans += color(32,40)+c;
 		}
 	    }
-	    return clear+hide + go(0,0) + ans + "\n" + show + color(37,40);
+	    return hide + go(0,0) + ans + "\n" + show + color(37,40);
 	}
 	else{
 	    return toString();
@@ -93,16 +97,31 @@ public class Maze{
      * Replace spaces with x's as you traverse the maze. 
      */
     public class Point{
-	int x,y,worth;
+	int x,y,worth,steps;
 	Point previous;
+	public Point(int a,int b,Point p,int c,int s){
+	    x=a;
+	    y=b;
+	    worth=c;
+	    previous=p;
+	    steps=s;
+	}
 	public Point(int a,int b,Point p,int c){
 	    x=a;
 	    y=b;
 	    worth=c;
 	    previous=p;
 	}
+	public Point(int a,int b,Point p){
+	    x=a;y=b;
+	    previous=p;
+	    steps=p.steps+1;
+	}
 	public Point(int a,int b,int c){
 	    x=a;y=b;worth=c;
+	}
+	public Point(int a,int b,int c,int s){
+	    x=a;y=b;worth=c;steps=s;
 	}
 	public boolean hasPrev(){
 	    return previous!=null;
@@ -134,6 +153,15 @@ public class Maze{
 	public String toString(){
 	    return q.toString();
 	}
+	public void add(Point c,int v){
+	    if(mode<2){
+		add(c);
+		return;
+	    }
+	    else{
+		q.add(c,v);
+	    }
+	}
 	public void add(Point c){
 	    if(mode==0)q.addLast(c);
 	    else if(mode==1){
@@ -144,7 +172,8 @@ public class Maze{
 	    }
 	}
 	public Point remove(){
-	    return q.removeFirst();
+	    if(mode<2)return q.removeFirst();
+	    return q.removeSmallest();
 	}
 	public Point get(){
 	    return q.getFirst();
@@ -173,8 +202,8 @@ public class Maze{
     private boolean solve(boolean animate, int mode){
 
 	Frontier rest = new Frontier(mode);
-	Point start = new Point(startx,starty,0);
-	rest.add(start);//put the start into the Frontier 
+	Point start = new Point(startx,starty,0,0);
+	rest.add(start,0);//put the start into the Frontier 
 		
 	boolean solved = false;
 	while(!solved && rest.hasNext()){
@@ -193,17 +222,27 @@ public class Maze{
 
 	    }else{
 		//not solved, so add neighbors to Frontier and mark the floor with x.
+		System.out.println(""+next.getX()+" "+next.getY());
 		maze[next.getX()][next.getY()]='x';
 		if(next.hasPrev()){
 		    maze[next.getPrev().getX()][next.getPrev().getY()]='.';
 		}
 		for(Point p : getNeighbors(next)){
-		    if(p!=null)rest.add(p);
+		    if(p!=null){
+			if(mode<2){rest.add(p);}
+			else if(mode==2){
+			    rest.add(p,Math.abs(p.getX()-endx)+Math.abs(p.getY()-endy));
+			}
+			else{
+			    rest.add(p,Math.abs(p.getX()-endx)+Math.abs(p.getY()-endy)+p.steps);
+			}
+		    }
 		}
 
 	    }
 	}
 	maze[startx][starty]='S';
+	maze[endx][endy]='E';
 	System.out.println(toString(true));
 	System.out.println(Arrays.toString(sol));
 	return solved;
@@ -232,23 +271,35 @@ public class Maze{
      * Replace spaces with x's as you traverse the maze. 
      */
     public boolean solveDFS(boolean animate){
-	return solve(false,1);
+	return solve(animate,1);
     }
     public boolean solveBFS(boolean animate){
 	return solve(animate,0);
     }
+    public boolean solveBest(boolean animate){
+	return solve(animate,2);
+    }
+    public boolean solveAStar(boolean animate){
+	return solve(animate,3);
+    }
     public boolean solveBFS(){
-	return solve(false,0);
+	return solveBFS(false);
     }
     public boolean solveDFS(){
 	return solveDFS(false);
+    }
+    public boolean solveBest(){
+	return solveBest(false);
+    }
+    public boolean solveAStar(){
+	return solveAStar(false);
     }
     public static void main(String[]arr){
 	Maze a=new Maze("data1.dat");
 	a.clearTerminal();
 	//Point b=new Point(0,0);
 	//System.out.println(a.getNeighbors(b));
-	a.solve(true,1);
+	a.solve(true,3);
     }
     
 }
