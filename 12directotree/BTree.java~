@@ -1,0 +1,40 @@
+import java.util.*;
+import java.io.*;
+public class BTree<E>{
+    public static final int PRE_ORDER=0;
+    public static final int IN_ORDER=1;
+    public static final int POST_ORDER=2;
+    private TreeNode<E> root;
+    public BTRee(){
+	root=null;
+    }
+    public class TreeNode<E>{
+	private TreeNode<E> left,right;
+	public E value;
+	public TreeNode(E v){
+	    value=v;
+	}
+	public E getValue(){
+	    return value;
+	}
+	public void setValue(E v){
+	    value=v;
+	}
+	public void setLeft(E v){
+	    left=new TreeNode(v);
+	}
+	public void setRight(E v){
+	    right=new TreeNode(v);
+	}
+	public E getLeft(){
+	    return left.getValue();
+	}
+	public E getRight(){
+	    return right.getValue();
+	}
+    }
+    public static void main(String arr){
+	TreeNode<int> t=new TreeNode(4);
+	System.out.println(""+t.getValue());
+    }
+}
