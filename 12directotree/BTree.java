@@ -27,6 +27,9 @@ public class BTree<E>{
 	    add(curr.right,bn);
 	}
     }
+    public void preOrder(TreeNode<E> curr){
+	
+    }
     private class TreeNode<E>{
 	private TreeNode<E> left,right;
 	public E value;
@@ -58,13 +61,13 @@ public class BTree<E>{
 	    return right.getValue();
 	}
 	public int hasSpace(){
-	    if(getLeft()==null)return 0;
-	    if(getRight()==null)return 1;
+	    if(left==null)return 0;
+	    if(right==null)return 1;
 	    return -1;
 	}
     }
-    public static void main(String arr){
-	BTree<Integer> t=new BTree<Integer>();
+    public static void main(String[] arr){
+	BTree<Integer> t=new BTree<Integer>(3);
 	for(int i=0;i<8;i++){
 	    t.add(i);
 	}
