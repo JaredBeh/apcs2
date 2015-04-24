@@ -32,6 +32,15 @@ public class BTree<E>{
 	    add(curr.right,bn);
 	}
     }
+    public void traverse( int mode) {
+	if ( mode == PRE_ORDER )
+	    preOrder( root );
+	else if ( mode == IN_ORDER )
+	    inOrder( root );
+	else
+	    postOrder( root );
+	System.out.println();
+    }
     public void preOrder(TreeNode<E> curr){
 	if(curr==null)return;
 	System.out.println(curr.getValue());
@@ -49,6 +58,19 @@ public class BTree<E>{
 	postOrder(curr.left);
 	postOrder(curr.right);
 	System.out.println(curr.getValue());
+    }
+    public int getHeight(){return getHeight(root);}
+    public int getHeight(TreeNode<E> curr){
+	if(curr==null)return 0;
+	return 1+Math.max(getHeight(curr.left),getHeight(curr.right));
+    }
+    public String getLevel(int level){
+	return getLevel(root,level,0);
+    }
+    private String getLevel(TreeNode<E> curr,int level,int currentLevel){
+	if(curr==null)return " ";
+	if(level==currentLevel)return ""+curr.getValue();
+	return getLevel(curr.left,level,currentLevel+1)+getLevel(curr.right,level,currentLevel+1);
     }
     private class TreeNode<E>{
 	private TreeNode<E> left,right;
@@ -113,6 +135,7 @@ public class BTree<E>{
 	    t.add(i);
 	}
 	System.out.println(t);
-	t.inOrder(t.root);
+	t.preOrder(t.root);
+	System.out.println(t.getLevel(2));
     }
 }
