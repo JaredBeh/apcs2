@@ -38,6 +38,18 @@ public class BTree<E>{
 	preOrder(curr.left);
 	preOrder(curr.right);
     }
+    public void inOrder(TreeNode<E> curr){
+	if(curr==null)return;
+	inOrder(curr.left);
+	System.out.println(curr.getValue());
+	inOrder(curr.right);
+    }
+    public void postOrder(TreeNode<E> curr){
+	if(curr==null)return;
+	postOrder(curr.left);
+	postOrder(curr.right);
+	System.out.println(curr.getValue());
+    }
     private class TreeNode<E>{
 	private TreeNode<E> left,right;
 	public E value;
@@ -96,11 +108,11 @@ public class BTree<E>{
 	return ans;
     }
     public static void main(String[] arr){
-	BTree<Integer> t=new BTree<Integer>(3);
+	BTree<Integer> t=new BTree<Integer>();
 	for(int i=0;i<8;i++){
 	    t.add(i);
 	}
 	System.out.println(t);
-	t.preOrder(t.root);
+	t.inOrder(t.root);
     }
 }
