@@ -5,7 +5,7 @@ public class BTree<E>{
     public static final int IN_ORDER=1;
     public static final int POST_ORDER=2;
     private TreeNode<E> root;
-    
+    Random r=new Random();
     public BTree(){
 	root=null;
     }
@@ -23,7 +23,6 @@ public class BTree<E>{
 	if(curr.hasSpace()==0)curr.setLeft(bn);
 	else if(curr.hasSpace()==1)curr.setRight(bn);
 	else{
-	    Random r=new Random();
 	    int a=r.nextInt(2);
 	    if(a==0){
 		add(curr.left,bn);
@@ -129,6 +128,11 @@ public class BTree<E>{
 	}
 	return ans;
     }
+    public String coolString(){
+	String ans="";
+	TreeNode<E> n=root;
+	return ans;
+    }
     public static void main(String[] arr){
 	BTree<Integer> t=new BTree<Integer>();
 	for(int i=0;i<8;i++){
@@ -136,6 +140,6 @@ public class BTree<E>{
 	}
 	System.out.println(t);
 	t.preOrder(t.root);
-	System.out.println(t.getLevel(2));
+	System.out.println(t.coolString());
     }
 }
