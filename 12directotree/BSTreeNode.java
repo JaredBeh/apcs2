@@ -20,6 +20,9 @@ public class BSTreeNode<T extends Comparable> {
     public T getData() {
 	return data;
     }
+    public String toString(){
+	return getData().toString();
+    }
     public BSTreeNode<T> getLeft() {
 	return left;
     }
