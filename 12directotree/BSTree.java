@@ -195,13 +195,29 @@ public class BSTree <T extends Comparable> {
 	if(k<0)curr.setLeft(remove(curr.getLeft(),c));
 	else if(k>0)curr.setRight(remove(curr.getRight(),c));
 	else{
-	    if(curr.isLeaf()){
+	    if(isLeaf(curr)){
 		return null;
 	    }
+	    T ans=findClosest(curr);
+	    curr=remove(curr,ans);
+	    curr.setData(ans);
 	}
 	return curr;
     }
-
+    private T findClosest(BSTreeNode<T> curr){
+	Random r=new Random();
+	boolean way=false;
+	if(r.nextInt(2)==0)way=true;
+	if(way&&curr.getLeft()!=null){
+	    curr=curr.getLeft();
+	    while(curr.getRight()!=null)curr=curr.getRight();
+	}
+	else{
+	    curr=curr.getRight();
+	    while(curr.getLeft()!=null)curr=curr.getLeft();
+	}
+	return curr.getData();
+    }
 
     /*======== public void inOrder()) ==========
       Inputs:   
@@ -235,6 +251,9 @@ public class BSTree <T extends Comparable> {
 	groot.add(3);
 	groot.add(5);
 	groot.add(4);
+	groot.add(1);
+	groot.add(0);
+	groot.remove(3);
 	System.out.println(groot);
     }
 
