@@ -255,6 +255,7 @@ public class BSTree <T extends Comparable> {
 	groot.add(0);
 	groot.remove(3);
 	System.out.println(groot);
+	groot.inOrder();
     }
 
 }
