@@ -1,0 +1,22 @@
+import java.util.*;
+public class MyHeap{
+    public boolean maxornah;
+    public int[]data=new int[7];
+    public MyHeap(boolean isMax){
+	maxornah=isMax;
+    }
+    public MyHeap(){
+	this(true);
+    }
+    public String toString(){
+	return Arrays.toString(data);
+    }
+    public int remove(){
+	if(data[0]==0)throw new IndexOutOfBoundsException();
+	data[0]--;
+	int ans=data[1];
+	data[1]=data[data[0]];
+	
+	return ans;
+    }
+}
