@@ -11,6 +11,28 @@ public class MyHeap{
     public String toString(){
 	return Arrays.toString(data);
     }
+    public void resize(){
+	if(data[0]==data.length){
+	    int[]d=new int[data[0]*2];
+	    System.arraycopy(data,0,d,0,data[0]);
+	    data=d;
+	}
+    }
+    public boolean compare(int n){
+	return n>1 && ((maxornah && data[n]>data[n/2])||(!maxornah && data[n]<data[n/2]));
+    }
+    public void add(int a){
+	data[0]++;
+	resize();
+	int c=data[0];
+	data[c]=a;
+	while(compare(c)){
+	    int temp=data[c];
+	    data[c]=data[c/2];
+	    data[c/2]=temp;
+	    c/=2;
+	}
+    }
     public int remove(){
 	if(data[0]==0)throw new IndexOutOfBoundsException();
 	data[0]--;
@@ -39,5 +61,15 @@ public class MyHeap{
 		
 	    }
 	}
+    }
+    public static void main(String[] args){
+	MyHeap a=new MyHeap();
+	a.add(3);
+	a.add(4);
+	a.add(2);
+	a.add(10);
+	a.add(1);
+	a.add(11);
+	System.out.println(a);
     }
 }
