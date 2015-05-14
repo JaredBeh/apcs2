@@ -1,0 +1,6 @@
+public class RunningMedian{
+    MyHeap lower=new MyHeap(),upper=new MyHeap(false);
+    public void add(int val){
+	if(val.
+    }
+}
