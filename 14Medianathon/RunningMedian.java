@@ -1,3 +1,4 @@
+import java.util.*;
 public class RunningMedian{
     private MyHeap lower=new MyHeap(),upper=new MyHeap(false);
     public void add(int val){
@@ -14,7 +15,7 @@ public class RunningMedian{
 	    }
 	    lower.add(val);
 	}
-	if(l>u){
+	else if(l>u){
 	    if(val<lower.peek()){
 		int temp=val;
 		val=lower.remove();
@@ -22,8 +23,33 @@ public class RunningMedian{
 	    }
 	    upper.add(val);
 	}
-	if(l==u){
-	    
+	else{
+	    if(val<upper.peek()){
+		lower.add(val);
+	    }
+	    else{
+		upper.add(val);
+	    }
 	}
+    }
+    public String toString(){
+	return lower.toString()+upper.toString();
+    }
+    public double getMedian(){
+	if(lower.size()==upper.size()){
+	    return .5*(lower.peek()+upper.peek());
+	}
+	if(lower.size()>upper.size()){
+	    return lower.peek();
+	}
+	return upper.peek();
+    }
+    public static void main(String[] args){
+	RunningMedian barry=new RunningMedian();
+	barry.add(3);
+	barry.add(2);
+	barry.add(10);
+	barry.add(0);
+	System.out.println(barry+"\n"+barry.getMedian());
     }
 }
