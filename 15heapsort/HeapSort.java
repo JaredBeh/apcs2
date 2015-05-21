@@ -1,22 +1,36 @@
 import java.util.Arrays;
 public class HeapSort{
-    public int[]data;
-    public void Heapify(int[] values){
-	data=values;
-	for(int i=data.length/2-1;i>=0;i--){
-	    swapDown(i);
+    public static int[]data;
+    public static int size;
+    public HeapSort(int[] d,int s){
+	data=d;
+	size=s;
+    }
+    public static void HSort(){
+	Heapify(data,size);
+	for(int i=size-1;i>0;i--){
+	    swap(0,i);
+	    swapDown(0,i-1);
 	}
     }
-    public void swapDown(int i){
-	if(2*i+1>=data.length){
+    public static void swap(int a,int b){
+	int temp=data[a];
+	data[a]=data[b];
+	data[b]=temp;
+    }
+    public static void Heapify(int size){
+	for(int i=size/2-1;i>=0;i--){
+	    swapDown(i,size);
+	}
+    }
+    public static void swapDown(int i,int end){
+	if(2*i+1>=end){
 	    return;
 	}
-	if(2*i+2>=data.length){
+	if(2*i+2>=end){
 	    if(data[i]<data[2*i+1]){
-		int temp=data[i];
-		data[i]=data[i*2+1];
-		data[2*i+1]=temp;
-		swapDown(2*i+1);
+		swap(i,2*i+1);
+		swapDown(2*i+1,end);
 	    }
 	    return;
 	}
@@ -25,16 +39,14 @@ public class HeapSort{
 	    a++;
 	}
 	if(data[i]<data[a]){
-	    int temp=data[i];
-	    data[i]=data[a];
-	    data[a]=temp;
-	    swapDown(a);
+	    swap(i,a);
+	    swapDown(a,end);
 	}
     }
     public static void main(String[] args){
-	HeapSort a=new HeapSort();
 	int[] b = {1,8,6,4,9,11,0,5};
-	a.Heapify(b);
-	System.out.println(Arrays.toString(a.data));
+	HeapSort a=new HeapSort(b,b.length);
+	HeapSort.Heapify();
+	System.out.println(Arrays.toString(HeapSort.data));
     }
 }
